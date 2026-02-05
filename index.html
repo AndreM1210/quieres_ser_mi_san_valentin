@@ -50,9 +50,11 @@
     }
 
     #no{
-        right:70px;
-        bottom:30px;
+        position:fixed;
+        left:70%;
+        top:70%;
         background:#eee;
+        z-index:5;
     }
 
     button:hover{
@@ -111,18 +113,30 @@
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 
-function moveButton(){
-    const padding = 80;
-    const x = Math.random() * (window.innerWidth - padding);
-    const y = Math.random() * (window.innerHeight - padding);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+function runAway(e){
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const mouseX = e.touches ? e.touches[0].clientX : e.clientX;
+    const mouseY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    const distance = Math.hypot(
+        mouseX - (btnRect.left + btnRect.width/2),
+        mouseY - (btnRect.top + btnRect.height/2)
+    );
+
+    // si el cursor/dedo se acerca a 120px, huye
+    if(distance < 120){
+        const newX = Math.random() * (window.innerWidth - btnRect.width);
+        const newY = Math.random() * (window.innerHeight - btnRect.height);
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
+    }
 }
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+document.addEventListener("mousemove", runAway);
+document.addEventListener("touchmove", runAway);
 
-// corazones flotando
+// corazones
 function createHeart(){
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -130,7 +144,6 @@ function createHeart(){
     heart.style.left = Math.random()*100 + "vw";
     heart.style.fontSize = (Math.random()*20+15) + "px";
     document.body.appendChild(heart);
-
     setTimeout(()=> heart.remove(),6000);
 }
 setInterval(createHeart, 300);
