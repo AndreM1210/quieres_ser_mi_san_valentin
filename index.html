@@ -51,10 +51,10 @@
 
     #no{
         position:fixed;
-        left:70%;
+        left:60%;
         top:70%;
         background:#eee;
-        z-index:5;
+        z-index:10;
     }
 
     button:hover{
@@ -109,32 +109,29 @@
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a7b9e5f3e.mp3" type="audio/mp3">
 </audio>
 
-<script>
+    <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 
-function runAway(e){
-    const btnRect = noBtn.getBoundingClientRect();
+function randomMove(){
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-    const mouseX = e.touches ? e.touches[0].clientX : e.clientX;
-    const mouseY = e.touches ? e.touches[0].clientY : e.clientY;
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
 
-    const distance = Math.hypot(
-        mouseX - (btnRect.left + btnRect.width/2),
-        mouseY - (btnRect.top + btnRect.height/2)
-    );
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
 
-    // si el cursor/dedo se acerca a 120px, huye
-    if(distance < 120){
-        const newX = Math.random() * (window.innerWidth - btnRect.width);
-        const newY = Math.random() * (window.innerHeight - btnRect.height);
-        noBtn.style.left = newX + "px";
-        noBtn.style.top = newY + "px";
-    }
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
 }
 
-document.addEventListener("mousemove", runAway);
-document.addEventListener("touchmove", runAway);
+// cuando el mouse intenta entrar
+noBtn.addEventListener("mouseenter", randomMove);
+
+// cuando intentan tocar en móvil
+noBtn.addEventListener("touchstart", randomMove);
 
 // corazones
 function createHeart(){
