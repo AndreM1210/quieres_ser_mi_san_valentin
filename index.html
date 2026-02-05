@@ -4,50 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hey tu, si tu preciosa❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
     height:100vh;
     overflow:hidden;
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Poppins', sans-serif;
     background:linear-gradient(135deg,#ff9a9e,#fad0c4);
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
+/* TARJETA ROMÁNTICA */
 .card{
-    background:white;
-    padding:40px;
-    border-radius:25px;
+    position:relative;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(8px);
+    padding:45px 35px;
+    border-radius:30px;
     text-align:center;
-    box-shadow:0 15px 40px rgba(0,0,0,0.2);
-    width:340px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+    width:360px;
+    border:1px solid rgba(255,255,255,0.4);
 }
 
+/* brillo sutil detrás */
+.card::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:32px;
+    background:linear-gradient(135deg,#ffffff55,#ffffff10);
+    z-index:-1;
+}
+
+/* TITULO ROMÁNTICO */
+.card h1{
+    font-family:'Great Vibes', cursive;
+    font-size:48px;
+    margin:0;
+    color:#ff4d6d;
+    text-shadow:0 6px 25px rgba(255,77,109,0.3);
+}
+
+/* TEXTO */
+.card p{
+    margin-top:12px;
+    font-size:17px;
+    color:#555;
+    font-weight:300;
+}
+
+.card small{
+    font-weight:400;
+    color:#ff4d6d;
+}
+
+/* BOTONES */
 .buttons{
+    position:relative;
     display:flex;
     justify-content:center;
-    gap:20px;
-    margin-top:25px;
+    gap:22px;
+    margin-top:30px;
 }
 
 button{
-    padding:12px 28px;
+    padding:13px 30px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     font-size:16px;
     cursor:pointer;
+    font-weight:600;
+    letter-spacing:0.5px;
 }
 
 #yes{
     background:#ff4d6d;
     color:white;
+    box-shadow:0 8px 25px rgba(255,77,109,0.4);
 }
 
 #no{
-    background:#eee;
+    background:#f1f1f1;
     transition: transform .25s ease;
 }
 
@@ -62,28 +104,54 @@ button{
 
 @keyframes float{
     from{
-        transform: translateY(90vh) scale(1);
+        transform: translateY(95vh) scale(1);
         opacity: 0.9;
     }
     to{
-        transform: translateY(-30vh) scale(1.8);
+        transform: translateY(-40vh) scale(1.8);
         opacity: 0;
     }
 }
 
+/* pantalla final */
 .final{
-    position:absolute;
+    position:fixed;
     inset:0;
+    z-index:9999;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    color:white;
-    font-size:38px;
     text-align:center;
-    padding:20px;
+    padding:30px;
+
+    background:
+        radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 60%),
+        linear-gradient(135deg,#ff5f8f,#ff7eb3,#ff9ac6);
+
+    color:white;
+    animation:fadeFinal 1.2s ease;
+}
+
+.final h1{
+    font-family:'Great Vibes', cursive;
+    font-size:64px;
+    margin:0;
+    letter-spacing:2px;
+    text-shadow:0 5px 25px rgba(0,0,0,0.25);
+}
+
+.final p{
+    font-size:20px;
+    margin-top:15px;
+    opacity:0.9;
+}
+
+@keyframes fadeFinal{
+    from{opacity:0; transform:scale(1.1);}
+    to{opacity:1; transform:scale(1);}
 }
 </style>
+
 </head>
 <body>
 
@@ -149,7 +217,13 @@ setInterval(createHeart, 50);
 yesBtn.addEventListener("click", ()=>{
     const final = document.createElement("div");
     final.classList.add("final");
-    final.innerHTML = "Sabía que dirías que si<br>Te amo muchísimo hermosura💖<br><br>Y por aceptar te ganaste una cita sorpresa :3";
+    final.innerHTML = `
+    <div>
+        <h1>Sabía que dirías que sí 💖</h1>
+        <p>Te amo muchísimo hermosura</p>
+        <p>Y por aceptar te ganaste una cita sorpresa :3</p>
+    </div>
+`;
     document.body.appendChild(final);
 });
 </script>
