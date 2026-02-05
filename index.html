@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey Maria ❤️</title>
+
+<style>
+    body{
+        margin:0;
+        height:100vh;
+        overflow:hidden;
+        font-family:'Segoe UI',sans-serif;
+        background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .card{
+        background:white;
+        padding:40px;
+        border-radius:25px;
+        text-align:center;
+        box-shadow:0 15px 40px rgba(0,0,0,0.2);
+        position:relative;
+        z-index:2;
+        animation:fadeIn 1.5s ease;
+        width:340px;
+    }
+
+    h1{ margin:0 0 10px; }
+    p{ font-size:18px; margin-bottom:30px; }
+
+    button{
+        padding:12px 28px;
+        border:none;
+        border-radius:12px;
+        font-size:16px;
+        cursor:pointer;
+        position:absolute;
+        transition:transform .2s;
+    }
+
+    #yes{
+        left:70px;
+        bottom:30px;
+        background:#ff4d6d;
+        color:white;
+    }
+
+    #no{
+        right:70px;
+        bottom:30px;
+        background:#eee;
+    }
+
+    button:hover{
+        transform:scale(1.1);
+    }
+
+    @keyframes fadeIn{
+        from{opacity:0; transform:translateY(20px);}
+        to{opacity:1; transform:translateY(0);}
+    }
+
+    /* corazones */
+    .heart{
+        position:absolute;
+        color:#ff4d6d;
+        animation:float 6s linear infinite;
+        font-size:20px;
+        opacity:0.7;
+    }
+
+    @keyframes float{
+        from{transform:translateY(100vh) scale(1);}
+        to{transform:translateY(-10vh) scale(1.8); opacity:0;}
+    }
+
+    .final{
+        position:absolute;
+        inset:0;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#ff758c,#ff7eb3);
+        color:white;
+        font-size:38px;
+        text-align:center;
+        animation:fadeIn 1s ease;
+        z-index:3;
+        padding:20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Hey Maria ❤️</h1>
+    <p>¿Quieres ser mi San Valentín?<br><small>No acepto un no por respuesta…</small></p>
+    <button id="yes">Sí 💖</button>
+    <button id="no">No 😢</button>
+</div>
+
+<audio id="music" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a7b9e5f3e.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+function moveButton(){
+    const padding = 80;
+    const x = Math.random() * (window.innerWidth - padding);
+    const y = Math.random() * (window.innerHeight - padding);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// corazones flotando
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*20+15) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(()=> heart.remove(),6000);
+}
+setInterval(createHeart, 300);
+
+// pantalla final
+yesBtn.addEventListener("click", ()=>{
+    const final = document.createElement("div");
+    final.classList.add("final");
+    final.innerHTML = "Sabía que dirías que Sí 💖<br>Te amo muchísimo";
+    document.body.appendChild(final);
+});
+</script>
+
+</body>
+</html>
